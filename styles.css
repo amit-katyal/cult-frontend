@@ -1,0 +1,194 @@
+/* General Styles */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #121212;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-left: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+    color: #fff;
+}
+
+.connect-wallet {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.connect-wallet:hover {
+    background-color: #388e3c;
+}
+
+/* Coin Section Styles */
+.coin-section {
+    padding: 2rem;
+    display: none; /* Hide all sections by default */
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically center items in the header */
+}
+
+.coin-section.active {
+    display: block;
+}
+
+.coin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.coin-card {
+    background-color: #222;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.coin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.coin-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.coin-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.coin-card p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Filter Button and Options */
+.filter-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px; /* Reduced padding */
+    border: none;
+    border-radius: 20px; /* More rounded */
+    cursor: pointer;
+    font-size: 13px; /* Slightly smaller font */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filter-button:hover {
+    background-color: #388e3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.filter-button.active {
+    background-color: #333;
+    color: white;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* consistent shadow even on active */
+
+}
+
+.filter-options {
+    position: absolute;
+    right: 2rem; /* Same as button */
+    top: calc(100% + 5px);  /*Position just below the section header*/
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 250px;
+    opacity: 0; /* Start hidden */
+    transform: translateY(-10px); /* Start slightly above */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: none; /* Initially hidden */
+}
+
+
+.filter-options label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+}
+
+.filter-options select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    margin-bottom: 8px;
+}
+
+.filter-options select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.filter-options input[type="checkbox"] {
+    accent-color: #4CAF50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .coin-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    header {
+        flex-direction: column;
+    }
+      .filter-options {
+        right: 1rem; /* Adjust position for smaller screens */
+        width: auto;  /*allow to shrink*/
+        max-width: 90vw; /*don't overflow*/
+    }
+}
