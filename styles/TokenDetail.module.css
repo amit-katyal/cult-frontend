@@ -1,0 +1,653 @@
+/* Token Detail Page Styles */
+
+/* Loading Overlay */
+.loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.loadingOverlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loadingContent {
+    text-align: center;
+    padding: 30px;
+}
+
+.loadingSpinner {
+    font-size: 48px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    animation: spin 1.5s infinite linear;
+}
+
+.loadingText {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Error Overlay */
+.errorOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.errorOverlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.errorContent {
+    background-color: var(--secondary-bg);
+    border-radius: var(--card-radius);
+    padding: 30px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.errorIcon {
+    font-size: 48px;
+    color: var(--danger-color);
+    margin-bottom: 20px;
+}
+
+.errorText {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.errorBtn {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border: none;
+    border-radius: var(--button-radius);
+    padding: 10px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.errorBtn:hover {
+    background-color: #d9a50a;
+}
+
+/* Back Link */
+.backLink {
+    margin: 20px 0;
+}
+
+.goBack {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--button-radius);
+    transition: all 0.3s;
+}
+
+.goBack i {
+    margin-right: 8px;
+}
+
+.goBack:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Token Detail Main Container */
+.tokenDetailContainer {
+    background-color: var(--primary-bg);
+    border-radius: var(--card-radius);
+    margin-bottom: 40px;
+}
+
+/* Token Header Section */
+.tokenDetailHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.tokenDetailInfo {
+    display: flex;
+    gap: 24px;
+}
+
+.tokenDetailIcon {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    overflow: hidden;
+    background-color: var(--secondary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tokenDetailIcon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tokenDetailMain {
+    flex: 1;
+}
+
+.tokenDetailName {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.tokenDetailSymbol {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.tokenDetailAddressRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.tokenDetailLabel {
+    color: var(--text-secondary);
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.tokenDetailValue {
+    font-family: monospace;
+    color: var(--text-primary);
+}
+
+.tokenAddress, .creatorAddress {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.copyBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 2px 6px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.copyBtn:hover {
+    color: var(--accent-color);
+    background-color: rgba(240, 185, 11, 0.1);
+}
+
+.tokenDetailDescription {
+    margin-top: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+/* Token Status Badges */
+.tokenDetailStatus {
+    display: flex;
+    background-color: var(--secondary-bg);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tokenDetailStatusItem {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.tokenDetailStatusLabel {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.tokenDetailStatusValue {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tokenDetailStatusDivider {
+    width: 1px;
+    height: 50px;
+    background-color: var(--border-color);
+}
+
+/* Main Content Grid */
+.tokenDetailGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.tokenDetailLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tokenDetailRight {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Detail Cards */
+.detailCard {
+    background-color: var(--secondary-bg);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+}
+
+.detailCardHeader {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailCardTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.detailCardActions {
+    display: flex;
+    gap: 8px;
+}
+
+.chartTimeBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: var(--button-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chartTimeBtn:hover,
+.chartTimeBtn.active {
+    background-color: rgba(240, 185, 11, 0.1);
+    color: var(--accent-color);
+}
+
+.detailCardBody {
+    padding: 20px;
+}
+
+/* Progress Bars */
+.progressInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.progressBarContainer {
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progressBar {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}
+
+.progressDescription {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Trade Section */
+.tradeTabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tradeTabBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: var(--button-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tradeTabBtn:hover,
+.tradeTabBtn.active {
+    background-color: rgba(240, 185, 11, 0.1);
+    color: var(--accent-color);
+}
+
+.tradeTabContent {
+    display: none;
+}
+
+.tradeTabContent.active {
+    display: block;
+}
+
+.tradeInputGroup {
+    margin-bottom: 20px;
+}
+
+.tradeLabel {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.tradeInputContainer {
+    display: flex;
+    background-color: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--button-radius);
+    overflow: hidden;
+}
+
+.tradeInput {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px 15px;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.tradeInput:focus {
+    outline: none;
+}
+
+.tradeInputSuffix {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.tradeTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    background-color: var(--primary-bg);
+    padding: 12px 15px;
+    border-radius: var(--button-radius);
+}
+
+.tradeTotalLabel {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.tradeTotalValue {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.tradeBtn {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border: none;
+    border-radius: var(--button-radius);
+    padding: 12px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tradeBtn:hover {
+    background-color: #d9a50a;
+}
+
+/* Tables */
+.detailTableContainer {
+    overflow-x: auto;
+}
+
+.detailTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.detailTable th {
+    text-align: left;
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.detailTable td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.detailTable tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.tableAddress {
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    display: inline-block;
+}
+
+.tableLoading {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 30px 0;
+}
+
+.tableHash {
+    color: var(--blue-color);
+    text-decoration: none;
+}
+
+.tableHash:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1024px) {
+    .tokenDetailGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .tokenDetailHeader {
+        flex-direction: column;
+    }
+
+    .tokenDetailInfo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .tokenDetailMain {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tokenDetailAddressRow {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tokenDetailLabel {
+        width: auto;
+        margin-right: 8px;
+    }
+
+    .tokenDetailStatus {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .tokenDetailStatusDivider {
+        width: 80%;
+        height: 1px;
+    }
+
+    .tokenDetailIcon {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .detailCardHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tokenAddress, .creatorAddress {
+        max-width: 150px;
+    }
+}
+
+/* Network warning styles */
+.networkWarning {
+    background-color: rgba(246, 70, 93, 0.1);
+    color: var(--danger-color);
+    border-radius: var(--border-radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .networkWarning i {
+    margin-right: 8px;
+  }
+  
+  .switchNetworkBtn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: var(--button-radius);
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: auto;
+    transition: background-color 0.3s;
+  }
+  
+  .switchNetworkBtn:hover {
+    background-color: #e6334b;
+  }
+  
+  /* Wrong network button style */
+  .login-btn.wrong-network {
+    background-color: var(--danger-color);
+  }
+  
+  .login-btn.wrong-network:hover {
+    background-color: #e6334b;
+  }
+  
+  /* Wrong network trade button */
+  .tradeBtn.wrongNetworkBtn {
+    background-color: var(--danger-color);
+  }
+  
+  .tradeBtn.wrongNetworkBtn:hover {
+    background-color: #e6334b;
+  }
+  
+  /* Thirdweb connect button overrides */
+  .login-btn-container {
+    position: relative;
+  }
+  
+  .login-btn-container > button {
+    background-color: var(--accent-color) !important;
+    color: var(--primary-bg) !important;
+    border: none !important;
+    border-radius: var(--button-radius) !important;
+    padding: 10px 22px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .login-btn-container > button:hover {
+    background-color: #d9a50a !important;
+  }
