@@ -78,9 +78,9 @@ export default function TokenDetailPage({ params }) {
   const [tokenData, setTokenData] = useState({
     name: "Loading...",
     symbol: "...",
-    description: "Loading token details...",
+    description: "",
     fundingRaised: "0",
-    creatorAddress: ZERO_ADDRESS,
+    creatorAddress: tokenAddress,
     address: tokenAddress,
     totalSupply: "200000",
     remainingTokens: MAX_SUPPLY,
@@ -206,6 +206,8 @@ export default function TokenDetailPage({ params }) {
 
       let fundingRaised = "0";
       let tokenImageUrl = "";
+      let description = "";
+      let creatorAddress = ""
       try {
         const mainContract = new ethers.Contract(
           CONTRACT_CONFIG.CONTRACT_ADDRESS,
@@ -219,6 +221,8 @@ export default function TokenDetailPage({ params }) {
         if (found) {
           fundingRaised = ethers.utils.formatEther(found.fundingRaised || "0");
           tokenImageUrl = found.tokenImageUrl;
+          description = found.description;
+          creatorAddress = found.creatorAddress;
         }
       } catch (e) {
         console.log("Could not fetch fundingRaised:", e);
@@ -231,10 +235,13 @@ export default function TokenDetailPage({ params }) {
       return {
         name,
         symbol,
+        description,
         totalSupply: totalSupplyFormatted,
         tokenDecimals: decimals,
         fundingRaised,
         tokenImageUrl: tokenImageUrl,
+        creatorAddress: creatorAddress
+
       };
     } catch (error) {
       console.log("Error fetching basic token data:", error);
