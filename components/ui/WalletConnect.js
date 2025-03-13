@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useWeb3 } from '@/components/web3/ThirdwebProvider';
+import { useWeb3 } from '@/components/web3/Web3Provider';
 import { formatAddress } from '@/lib/utils/formatUtils';
 
 export default function WalletConnect({ onConnected, onDisconnected }) {

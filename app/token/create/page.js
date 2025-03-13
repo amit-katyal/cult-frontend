@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ethers } from 'ethers';
-import { useWeb3 } from '@/components/web3/ThirdwebProvider';
+import { useWeb3 } from '@/components/web3/Web3Provider';
 import { CONTRACT_CONFIG } from '@/constants/config';
 import { contractAbi } from '@/constants/abi';
 import styles from './TokenCreate.module.css';
