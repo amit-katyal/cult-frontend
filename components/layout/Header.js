@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useThirdweb } from '@/components/web3/ThirdwebProvider';
-import { formatAddress } from '@/lib/utils/formatUtils';
+import { useWeb3 } from '@/components/web3/Web3Provider';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,8 +14,9 @@ export default function Header() {
     disconnect, 
     isWrongNetwork, 
     switchToMonad,
-    ConnectWalletButton
-  } = useThirdweb();
+    ConnectWalletButton,
+    formatAddress
+  } = useWeb3();
 
   // Handle disconnect wallet button click
   const handleDisconnect = () => {
@@ -99,10 +99,6 @@ export default function Header() {
                   theme="dark"
                   btnTitle="Connect Wallet"
                   className="login-btn"
-                  dropdownPosition={{
-                    side: "bottom",
-                    align: "end"
-                  }}
                 />
               </div>
             )}
