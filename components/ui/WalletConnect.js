@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useThirdweb } from '@/components/web3/ThirdwebProvider';
+import { useWeb3 } from '@/components/web3/ThirdwebProvider';
 import { formatAddress } from '@/lib/utils/formatUtils';
 
 export default function WalletConnect({ onConnected, onDisconnected }) {
@@ -12,7 +12,7 @@ export default function WalletConnect({ onConnected, onDisconnected }) {
     isWrongNetwork, 
     switchToMonad,
     ConnectWalletButton
-  } = useThirdweb();
+  } = useWeb3();
 
   // Call onConnected callback when address changes
   useEffect(() => {

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Chart } from "chart.js/auto";
 import { ethers } from "ethers";
 import styles from "@/styles/TokenDetail.module.css";
-import { useThirdweb } from "@/components/web3/ThirdwebProvider";
+import { useWeb3 } from "@/components/web3/Web3Provider";
 import { CONTRACT_CONFIG } from "@/constants/config";
 import { contractAbi, tokenAbi } from "@/constants/abi";
 
@@ -69,7 +69,7 @@ export default function TokenDetailPage({ params }) {
     isWrongNetwork,
     switchToMonad,
     ConnectWalletButton,
-  } = useThirdweb();
+  } = useWeb3();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
