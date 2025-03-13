@@ -10,6 +10,7 @@ import styles from "@/styles/TokenDetail.module.css";
 import { useWeb3 } from "@/components/web3/Web3Provider";
 import { CONTRACT_CONFIG } from "@/constants/config";
 import { contractAbi, tokenAbi } from "@/constants/abi";
+import VerifyToken from "./verify"; // Adjust the path as needed
 
 const MAX_SUPPLY = 800000;
 const FUNDING_GOAL = 24;
@@ -18,7 +19,7 @@ const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 function formatAddress(address) {
   if (!address) return "";
   return `${address.substring(0, 6)}...${address.substring(
-    address.length - 4
+    address.length - 4,
   )}`;
 }
 
@@ -146,9 +147,8 @@ export default function TokenDetailPage({ params }) {
         fetchTransfersData(),
       ];
 
-      const [tokenBasicData, ownersData, transfersData] = await Promise.allSettled(
-        fetchPromises
-      );
+      const [tokenBasicData, ownersData, transfersData] =
+        await Promise.allSettled(fetchPromises);
 
       let totalSupplyValue = 0;
       if (
@@ -187,9 +187,13 @@ export default function TokenDetailPage({ params }) {
     console.log("Fetching basic token data...");
     try {
       const rpcProvider = new ethers.providers.JsonRpcProvider(
-        CONTRACT_CONFIG.RPC_URL
+        CONTRACT_CONFIG.RPC_URL,
       );
-      const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, rpcProvider);
+      const tokenContract = new ethers.Contract(
+        tokenAddress,
+        tokenAbi,
+        rpcProvider,
+      );
 
       const [name, symbol, totalSupply, decimals] = await Promise.all([
         tokenContract.name().catch(() => "Unknown Token"),
@@ -201,31 +205,36 @@ export default function TokenDetailPage({ params }) {
       ]);
 
       let fundingRaised = "0";
-      let tokenImageUrl = ""
+      let tokenImageUrl = "";
       try {
         const mainContract = new ethers.Contract(
           CONTRACT_CONFIG.CONTRACT_ADDRESS,
           contractAbi,
-          rpcProvider
+          rpcProvider,
         );
         const info = await mainContract.getAllMemeTokens();
-        const found = info.find((t) => t.tokenAddress.toLowerCase() === tokenAddress.toLowerCase());
+        const found = info.find(
+          (t) => t.tokenAddress.toLowerCase() === tokenAddress.toLowerCase(),
+        );
         if (found) {
           fundingRaised = ethers.utils.formatEther(found.fundingRaised || "0");
-          tokenImageUrl = found.tokenImageUrl
+          tokenImageUrl = found.tokenImageUrl;
         }
       } catch (e) {
         console.log("Could not fetch fundingRaised:", e);
       }
 
-      const totalSupplyFormatted = ethers.utils.formatUnits(totalSupply, decimals);
+      const totalSupplyFormatted = ethers.utils.formatUnits(
+        totalSupply,
+        decimals,
+      );
       return {
         name,
         symbol,
         totalSupply: totalSupplyFormatted,
         tokenDecimals: decimals,
         fundingRaised,
-        tokenImageUrl: tokenImageUrl
+        tokenImageUrl: tokenImageUrl,
       };
     } catch (error) {
       console.log("Error fetching basic token data:", error);
@@ -243,7 +252,7 @@ export default function TokenDetailPage({ params }) {
             accept: "application/json",
             "X-API-Key": CONTRACT_CONFIG.MORALIS_API_KEY,
           },
-        }
+        },
       );
       if (!ownersResponse.ok) {
         throw new Error(`Failed to fetch owners: ${ownersResponse.status}`);
@@ -266,10 +275,12 @@ export default function TokenDetailPage({ params }) {
             accept: "application/json",
             "X-API-Key": CONTRACT_CONFIG.MORALIS_API_KEY,
           },
-        }
+        },
       );
       if (!transfersResponse.ok) {
-        throw new Error(`Failed to fetch transfers: ${transfersResponse.status}`);
+        throw new Error(
+          `Failed to fetch transfers: ${transfersResponse.status}`,
+        );
       }
       const transfersData = await transfersResponse.json();
       return transfersData.result || [];
@@ -396,7 +407,9 @@ export default function TokenDetailPage({ params }) {
       const k = 0.0000001;
       const n = 1.5;
       const cost =
-        (k * (Math.pow(actualSupply + amount, n + 1) - Math.pow(actualSupply, n + 1))) /
+        (k *
+          (Math.pow(actualSupply + amount, n + 1) -
+            Math.pow(actualSupply, n + 1))) /
         (n + 1);
       if (isNaN(cost) || cost < 0) return 0;
       return cost;
@@ -415,7 +428,9 @@ export default function TokenDetailPage({ params }) {
     const n = 1.5;
     const sellAmount = Math.min(amount, currentSupply);
     const receive =
-      (k * (Math.pow(currentSupply, n + 1) - Math.pow(currentSupply - sellAmount, n + 1))) /
+      (k *
+        (Math.pow(currentSupply, n + 1) -
+          Math.pow(currentSupply - sellAmount, n + 1))) /
       (n + 1);
     return receive * 0.95;
   };
@@ -429,7 +444,9 @@ export default function TokenDetailPage({ params }) {
         return;
       }
       if (parseFloat(buyAmount) > tokenData.remainingTokens) {
-        alert(`Only ${tokenData.remainingTokens} tokens available for purchase`);
+        alert(
+          `Only ${tokenData.remainingTokens} tokens available for purchase`,
+        );
         return;
       }
     } else {
@@ -476,29 +493,36 @@ export default function TokenDetailPage({ params }) {
       const contract = new ethers.Contract(
         CONTRACT_CONFIG.CONTRACT_ADDRESS,
         contractAbi,
-        signer
+        signer,
       );
 
       let tx;
       if (tradeModal.isSell) {
         console.log("Executing SELL with amount:", tradeModal.amount);
-        const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, signer);
+        const tokenContract = new ethers.Contract(
+          tokenAddress,
+          tokenAbi,
+          signer,
+        );
         setTradeModal({
           ...tradeModal,
           status: { type: "loading", message: "Approving token transfer..." },
         });
         const amountToSellWei = ethers.utils.parseUnits(
           tradeModal.amount,
-          tokenData.tokenDecimals
+          tokenData.tokenDecimals,
         );
         const approvalTx = await tokenContract.approve(
           CONTRACT_CONFIG.CONTRACT_ADDRESS,
-          amountToSellWei
+          amountToSellWei,
         );
         await approvalTx.wait();
         setTradeModal({
           ...tradeModal,
-          status: { type: "loading", message: "Approval confirmed. Selling..." },
+          status: {
+            type: "loading",
+            message: "Approval confirmed. Selling...",
+          },
         });
         tx = await contract.sellMemeToken(tokenAddress, amountToSellWei);
       } else {
@@ -506,7 +530,7 @@ export default function TokenDetailPage({ params }) {
         const costWei = ethers.utils.parseEther(tradeModal.cost);
         const formattedAmount = ethers.utils.parseUnits(
           tradeModal.amount,
-          tokenData.tokenDecimals
+          tokenData.tokenDecimals,
         );
         tx = await contract.buyMemeToken(tokenAddress, formattedAmount, {
           value: costWei,
@@ -528,7 +552,7 @@ export default function TokenDetailPage({ params }) {
           type: "success",
           message: `Transaction success! Hash: ${receipt.transactionHash.substring(
             0,
-            10
+            10,
           )}...`,
         },
       });
@@ -594,7 +618,7 @@ export default function TokenDetailPage({ params }) {
         const trendFactor = trend * (1 + Math.random() * 0.5);
         const newPrice = Math.max(
           0.000001,
-          prices[i - 1] * (1 + randomFactor + trendFactor)
+          prices[i - 1] * (1 + randomFactor + trendFactor),
         );
         prices.push(newPrice);
       }
@@ -743,7 +767,10 @@ export default function TokenDetailPage({ params }) {
                     id="copyTokenAddressBtn"
                     className={styles.copyBtn}
                     onClick={() =>
-                      handleCopyAddress(tokenData.address, "copyTokenAddressBtn")
+                      handleCopyAddress(
+                        tokenData.address,
+                        "copyTokenAddressBtn",
+                      )
                     }
                   >
                     <i className="fas fa-copy"></i>
@@ -768,7 +795,7 @@ export default function TokenDetailPage({ params }) {
                         tokenData.creatorAddress ||
                           owners[0]?.owner_address ||
                           ZERO_ADDRESS,
-                        "copyCreatorAddressBtn"
+                        "copyCreatorAddressBtn",
                       )
                     }
                   >
@@ -876,7 +903,7 @@ export default function TokenDetailPage({ params }) {
                         width: `${Math.min(
                           (parseFloat(tokenData.fundingRaised) / FUNDING_GOAL) *
                             100,
-                          100
+                          100,
                         )}%`,
                       }}
                     ></div>
@@ -909,7 +936,7 @@ export default function TokenDetailPage({ params }) {
                           ((MAX_SUPPLY - tokenData.remainingTokens) /
                             MAX_SUPPLY) *
                             100,
-                          100
+                          100,
                         )}%`,
                       }}
                     ></div>
@@ -1015,7 +1042,9 @@ export default function TokenDetailPage({ params }) {
                     }`}
                   >
                     <div className={styles.tradeInputGroup}>
-                      <label className={styles.tradeLabel}>Amount to Sell</label>
+                      <label className={styles.tradeLabel}>
+                        Amount to Sell
+                      </label>
                       <div className={styles.tradeInputContainer}>
                         <input
                           type="number"
@@ -1093,7 +1122,7 @@ export default function TokenDetailPage({ params }) {
                               </td>
                               <td>
                                 {parseFloat(
-                                  owner.percentage_relative_to_total_supply
+                                  owner.percentage_relative_to_total_supply,
                                 ).toFixed(2)}
                                 %
                               </td>
@@ -1111,6 +1140,8 @@ export default function TokenDetailPage({ params }) {
                   </div>
                 </div>
               </div>
+
+              <VerifyToken isOwner={true} isVerified={false} />
 
               <div className={styles.detailCard}>
                 <div className={styles.detailCardHeader}>
