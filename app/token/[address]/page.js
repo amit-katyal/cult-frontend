@@ -78,13 +78,13 @@ export default function TokenDetailPage({ params }) {
     name: "Loading...",
     symbol: "...",
     description: "Loading token details...",
-    tokenImageUrl: "/api/placeholder/120/120",
     fundingRaised: "0",
     creatorAddress: ZERO_ADDRESS,
     address: tokenAddress,
     totalSupply: "200000",
     remainingTokens: MAX_SUPPLY,
     tokenDecimals: 18,
+    tokenImageUrl: "",
   });
 
   const [owners, setOwners] = useState([]);
@@ -201,6 +201,7 @@ export default function TokenDetailPage({ params }) {
       ]);
 
       let fundingRaised = "0";
+      let tokenImageUrl = ""
       try {
         const mainContract = new ethers.Contract(
           CONTRACT_CONFIG.CONTRACT_ADDRESS,
@@ -211,20 +212,20 @@ export default function TokenDetailPage({ params }) {
         const found = info.find((t) => t.tokenAddress.toLowerCase() === tokenAddress.toLowerCase());
         if (found) {
           fundingRaised = ethers.utils.formatEther(found.fundingRaised || "0");
+          tokenImageUrl = found.tokenImageUrl
         }
       } catch (e) {
         console.log("Could not fetch fundingRaised:", e);
       }
 
       const totalSupplyFormatted = ethers.utils.formatUnits(totalSupply, decimals);
-
       return {
         name,
         symbol,
         totalSupply: totalSupplyFormatted,
         tokenDecimals: decimals,
         fundingRaised,
-        tokenImageUrl: "/api/placeholder/120/120",
+        tokenImageUrl: tokenImageUrl
       };
     } catch (error) {
       console.log("Error fetching basic token data:", error);
@@ -718,8 +719,8 @@ export default function TokenDetailPage({ params }) {
             <div className={styles.tokenDetailInfo}>
               <div className={styles.tokenDetailIcon}>
                 <Image
-                  src={tokenData.tokenImageUrl || "/api/placeholder/120/120"}
-                  alt={tokenData.symbol}
+                  src={tokenData.tokenImageUrl}
+                  alt={tokenData.tokenImageUrl || "a"}
                   width={120}
                   height={120}
                 />
