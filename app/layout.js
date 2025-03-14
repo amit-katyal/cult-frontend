@@ -8,7 +8,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'The Cult - Celebrity Token Launchpad',
+  title: 'The Cult | Token Launchpad',
   description: 'Tokenizing Influence, Empowering Fans. Building bridges between creators and communities.',
 };
 
@@ -16,12 +16,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-          crossOrigin="anonymous" 
-          referrerPolicy="no-referrer" 
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
 
         {/* Load React Query first */}
@@ -29,15 +29,15 @@ export default function RootLayout({ children }) {
           src="https://unpkg.com/@tanstack/react-query@5.0.0/build/umd/index.production.js"
           strategy="beforeInteractive"
         />
-        
+
         {/* Ethers.js */}
-        <Script 
+        <Script
           src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
           strategy="beforeInteractive"
         />
-        
+
         {/* Optional: Chart.js for token detail page */}
-        <Script 
+        <Script
           src="https://cdn.jsdelivr.net/npm/chart.js"
           strategy="lazyOnload"
         />
