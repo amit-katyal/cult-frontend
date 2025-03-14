@@ -312,7 +312,7 @@ export function ThirdwebProvider({ children }) {
 
     // If connected to correct network, show address
     return (
-      <button className={`${buttonClass} connected`} onClick={() => {}}>
+      <button className={`${buttonClass} connected`} onClick={() => { }}>
         <i className="fas fa-check-circle"></i> Connected
       </button>
     );

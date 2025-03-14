@@ -70,31 +70,31 @@ export default function TokenTable() {
     <div>
       <div className="tabs-container">
         <div className="tabs-left">
-          <button 
+          <button
             className={`tab-btn category-tab ${activeTab === 'verified' ? 'active' : ''}`}
             onClick={() => handleTabClick('verified')}
           >
             Verifed<i className="fas fa-info-circle"></i>
           </button>
-          <button 
+          <button
             className={`tab-btn category-tab ${activeTab === 'topTraded' ? 'active' : ''}`}
             onClick={() => handleTabClick('topTraded')}
           >
             Top Traded
           </button>
-          <button 
+          <button
             className={`tab-btn category-tab ${activeTab === 'trending' ? 'active' : ''}`}
             onClick={() => handleTabClick('trending')}
           >
             Trending
           </button>
-          <button 
+          <button
             className={`tab-btn category-tab ${activeTab === 'newTokens' ? 'active' : ''}`}
             onClick={() => handleTabClick('newTokens')}
           >
             New Tokens <i className="fas fa-info-circle"></i>
           </button>
-          <button 
+          <button
             className={`tab-btn category-tab ${activeTab === 'watchlist' ? 'active' : ''}`}
             onClick={() => handleTabClick('watchlist')}
           >
@@ -114,7 +114,7 @@ export default function TokenTable() {
             <th className="sortable" style={{ textAlign: 'left' }}>
               Token / Symbol <i className="fas fa-chevron-down"></i>
             </th>
-            <th>Age</th>
+            {/* Age column removed */}
             <th>Mkt Cap</th>
             <th>24h Volume</th>
             <th>24h Txns</th>
@@ -127,28 +127,28 @@ export default function TokenTable() {
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="9" style={{ textAlign: 'center' }}>Loading tokens...</td>
+              <td colSpan="8" style={{ textAlign: 'center' }}>Loading tokens...</td>
             </tr>
           ) : error ? (
             <tr>
-              <td colSpan="9" style={{ textAlign: 'center', color: 'var(--danger-color)' }}>{error}</td>
+              <td colSpan="8" style={{ textAlign: 'center', color: 'var(--danger-color)' }}>{error}</td>
             </tr>
           ) : tokens.length === 0 ? (
             <tr>
-              <td colSpan="9" style={{ textAlign: 'center' }}>No tokens found</td>
+              <td colSpan="8" style={{ textAlign: 'center' }}>No tokens found</td>
             </tr>
           ) : (
             tokens.map((token, index) => (
-              <tr 
-                key={index} 
+              <tr
+                key={index}
                 onClick={() => handleRowClick(token.tokenAddress)}
                 style={{ cursor: 'pointer' }}
               >
                 <td style={{ textAlign: 'left' }}>
                   <div className="token-info">
                     <div className="token-icon">
-                      <img 
-                        src={token.tokenImageUrl} 
+                      <img
+                        src={token.tokenImageUrl}
                         alt={token.symbol}
                         width={36}
                         height={36}
@@ -156,7 +156,7 @@ export default function TokenTable() {
                     </div>
                     <div className="token-name-container">
                       <div className="token-name">
-                        <span className="token-name-text">{token.name}</span> 
+                        <span className="token-name-text">{token.name}</span>
                         <i className="fas fa-check-circle verified-badge"></i>
                       </div>
                       <div className="token-symbol">
@@ -165,7 +165,7 @@ export default function TokenTable() {
                     </div>
                   </div>
                 </td>
-                <td style={{ textAlign: 'center' }}>12s</td>
+                {/* Age column TD removed */}
                 <td style={{ textAlign: 'center' }}>
                   {formatCurrency(token.fundingRaised)}
                 </td>
@@ -180,7 +180,7 @@ export default function TokenTable() {
                   </div>
                 </td>
                 <td className="action-cell">
-                  <button 
+                  <button
                     className="buy-btn"
                     onClick={(e) => handleQuickBuy(e, token.tokenAddress)}
                   >
